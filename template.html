@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Lista de tareas</h1>
+
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <a href="{% url 'tasks:task_detail' task.pk %}">{{ task.title }}</a>
+                - {{ task.get_status_display }}
+                - {{ task.project.name|default:'Sin proyecto' }}
+                - {{ task.deadline|dateformat:'d/m/Y' }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'tasks:task_create' %}">Crear nueva tarea</a>
+{% endblock %}
